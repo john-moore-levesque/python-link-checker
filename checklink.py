@@ -72,7 +72,6 @@ class CheckLink():
         Write data to a logfile; if the logfile already exists it is read in and the
         relevant page in the dict is updated
         """
-        If the logfile already exists,
         logname = re.sub("https?://w{3}.?", '', self.address)
         logname = re.sub("/", '.', logname)
         logfile = "%s/%s" %(logfilepath, logname)
