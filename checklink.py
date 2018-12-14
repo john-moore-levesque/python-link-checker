@@ -58,11 +58,17 @@ class CheckLink():
             try:
                 status, response = self.http.request(link)
                 if status['status'] not in good:
-                    self.badlinks.append(link)
+                    self.badlinks.append((status['status'], link))
                 else:
                     self.goodlinks.append(link)
             except httplib2.ServerNotFoundError:
-                self.other.append(link)
+                self.other.append(("httplib2.ServerNotFoundError", link))
+            except httplib2.ssl.SSLError:
+                self.other.append(("httplib2.ssl.SSLError", link))
+            except ConnectionResetError:
+                self.other.append(("ConnectionResetError", link))
+            except UnicodeError:
+                self.other.append(("UnicodeError", link))
 
         for link in self.links:
             _checkLink(link)
